@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=7a01048d1b8556feaa1bf370d364d936"></script>
+</head>
+<body>
+<div id="container" style="width: 80%;height:700px;margin: 10px auto;"></div>
+
+<script>
+    var mapObj = new  AMap.Map("container",{
+        zoom : 10
+    });
+
+    var marker = new AMap.Marker({
+        map:mapObj,
+        position : mapObj.getCenter(),
+        draggable:true
+    });
+
+    var center = mapObj.getCenter();
+
+    marker.on('dragging', function (e) {
+        var tempLnngLat = new AMap.LngLat(e.lnglat.lng,center.getLat());
+        var rs = tempLnngLat.distance(center);
+        console.log(rs);
+        var ps = 20 * 1000;
+        var ts = 1 * 1000;
+        if(rs > ps){
+            if(e.lnglat.lng < center.getLng()){
+                ps =  0 - ps;
+            }
+            var ls = center.offset( ps , 0);
+            marker.setPosition(ls);
+            return;
+        }
+        if(rs < ts){
+            if(e.lnglat.lng < center.getLng()){
+                ts =  0 - ts;
+            }
+            var ls = center.offset( ts , 0);
+            marker.setPosition(ls);
+            return;
+        }
+        marker.setPosition(tempLnngLat);
+        return true;
+    });
+
+</script>
+
+</body>
+</html>
