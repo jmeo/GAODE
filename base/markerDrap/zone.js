@@ -48,8 +48,31 @@ zone.prototype = {
             map : this.option.map,
             path : [this.option.centerLngLat,this.edgeButton.getPosition()]
         });
+    },
+    drawPlugin : function(){
+        //绘制插件
         
+    },
+    show : function(){
+
         
+    },
+    hide : function(){
+
+    }，
+    reset : function(){
+    
+    },
+    setOption : function(opt){
         
+    },
+    getCenter : function(){
+        return this.option.centerLngLat;
+    },
+    getRadius : function(){
+        return this.option.radius;
+    },
+    setCenter : function(lnglat){
+        this.option.centerLngLat = lnglat;
     }
 }
