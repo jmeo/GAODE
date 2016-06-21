@@ -10,7 +10,8 @@ zone.prototype.defaultOptions = {
         maxDistance : 3000, //最大半径
         centerIcon : false, //中心点图标
         centerLngLat : false ,//中心点坐标
-        radius : false //半径长度
+        radius : false, //半径长度
+        dragend : false
     };
 zone.prototype.extend = function(){
         var args = arguments;
@@ -53,6 +54,11 @@ zone.prototype.center = false;//圆心
             _this.option.centerLngLat = e.lnglat;
             _this.drawPlugin();
         });
+        _this.center.on('dragend',function(e){
+            if(_this.option.dragend){
+                _this.option.dragend(_this);
+            }
+        });
         _this.edgeButton.on('dragging',function(e){
             var _l = e.lnglat;
             var rs = _l.distance(_this.option.centerLngLat);
@@ -65,6 +71,12 @@ zone.prototype.center = false;//圆心
                 _this.option.radius = rs;
             }
             _this.drawPlugin();
+            
+        });
+        _this.edgeButton.on('dragend',function(e){
+            if(_this.option.dragend){
+                _this.option.dragend(_this);
+            }
         });
     }
     zone.prototype.drawPlugin = function(){

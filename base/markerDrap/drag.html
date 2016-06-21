@@ -17,7 +17,10 @@
     
     var k = new zone({
         map : mapObj,
-        centerLngLat : mapObj.getCenter()
+        centerLngLat : mapObj.getCenter(),
+        dragend : function(e){
+            console.log(e.getCenter());
+        }
     });
 //    k.drawPlugin();
 //    k.hide();
